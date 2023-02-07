@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Install dependencies"
-        run: sudo apt update && sudo apt install cmake libeigen3-dev libyml-cpp-dev libboost-all-dev
+        run: sudo apt update && sudo apt install cmake libeigen3-dev libboost-all-dev && sudo apt-get -qq -y install libyaml-cpp-dev
       - name: "Build sidemade and testsidemade"
         run: mkdir build && cd build && cmake ..
       - name: "Make"
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Install dependencies"
-        run: sudo apt update && sudo apt install cmake libeigen3-dev libyml-cpp-dev libboost-all-dev
+        run: sudo apt update && sudo apt install cmake libeigen3-dev libboost-all-dev && sudo apt-get -qq -y install libyaml-cpp-dev
       - uses: actions/download-artifact@v3
         with:
           name: build
