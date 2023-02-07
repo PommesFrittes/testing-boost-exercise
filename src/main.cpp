@@ -1,17 +1,15 @@
+#include "Configuration.hpp"
+#include "MatrixSolver.hpp"
+#include "matrixIO.hpp"
 #include <Eigen/Dense>
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include "Configuration.hpp"
-#include "MatrixSolver.hpp"
-#include "matrixIO.hpp"
 
 using namespace Eigen;
 
-int main(int argc, char *argv[])
-{
-  std::cout << "SIDEMADE – Simple Dense Matrix Decomposition\n"
-            << std::endl;
+int main(int argc, char *argv[]) {
+  std::cout << "SIDEMADE – Simple Dense Matrix Decomposition\n" << std::endl;
 
   if (argc != 2) {
     std::cerr << "SIDEMADE needs to be called with exactly one argument – the "
@@ -34,11 +32,10 @@ int main(int argc, char *argv[])
   const MatrixXd A = matrixIO::openData(configuration.matrixFileName,
                                         configuration.matrixSize);
   const VectorXd b = VectorXd::Random(configuration.matrixSize);
-  VectorXd       x = VectorXd(configuration.matrixSize);
+  VectorXd x = VectorXd(configuration.matrixSize);
 
   // solve A * x = b
-  std::cout << "Solving ...\n"
-            << std::endl;
+  std::cout << "Solving ...\n" << std::endl;
   solver.solve(A, b, x);
 
   const double absRes = (A * x - b).norm(); // norm() computes l2 norm

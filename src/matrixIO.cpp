@@ -9,8 +9,7 @@ using namespace Eigen;
 
 namespace matrixIO {
 
-void saveData(const string &fileName, const MatrixXd &matrix)
-{
+void saveData(const string &fileName, const MatrixXd &matrix) {
   // see https://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
   const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
 
@@ -21,8 +20,7 @@ void saveData(const string &fileName, const MatrixXd &matrix)
   }
 }
 
-MatrixXd openData(const string &fileToOpen, const int matrixSize)
-{
+MatrixXd openData(const string &fileToOpen, const int matrixSize) {
   ifstream matrixDataFile(fileToOpen);
 
   // one row of the matrix as a string with comma-separated values

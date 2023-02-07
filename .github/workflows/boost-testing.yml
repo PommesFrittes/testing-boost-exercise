@@ -1,0 +1,50 @@
+name: SSE Testing
+
+on: push
+
+jobs:
+  style_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Install style checker clang-format"
+        run: sudo apt update && sudo apt install clang-format
+      - name: "Run style check"
+        run: clang-format src/*.cpp src/*.hpp tests/*.cpp --dry-run -Werror
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Install dependencies"
+        run: sudo apt update && sudo apt install cmake libeigen3-dev libboost-all-dev && sudo apt-get -qq -y install libyaml-cpp-dev
+      - name: "Build sidemade and testsidemade"
+        run: mkdir build && cd build && cmake ..
+      - name: "Make"
+        run: cd build && make
+      - name: "Compress build folder"
+        run: tar -cvf build.tar build
+      - name: "Upload compressed build folder"
+        uses: actions/upload-artifact@v3
+        with: 
+          name: build
+          path: build.tar
+          retention-days: 1
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Install dependencies"
+        run: sudo apt update && sudo apt install cmake libeigen3-dev libboost-all-dev && sudo apt-get -qq -y install libyaml-cpp-dev
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: "Extract build folder"
+        run: tar -xvf build.tar
+      - name: "Run tests"
+        run: cd build && make test
+
+
+      
+
+
