@@ -19,9 +19,7 @@ https://eigen.tuxfamily.org/dox/group__TutorialLinearAlgebra.html
 class MatrixSolver {
 public:
   // Available decomposition types
-  enum DecompositionType { LU,
-                           QR,
-                           LU2 };
+  enum DecompositionType { LU, QR, LU2 };
 
   // Constructor, takes decomposition type.
   MatrixSolver(DecompositionType decompositionType);
